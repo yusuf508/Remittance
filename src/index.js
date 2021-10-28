@@ -2,7 +2,8 @@ require('dotenv').config();
 let express = require('express');
 const logger = require('./config/logger');
 const app = express();
-const port = process.env.PORT;
+ const port = process.env.PORT;
+//var port =900;
 const httpStatus = require('http-status');
 const { AppError } = require('./payload/AppError');
 
@@ -15,7 +16,7 @@ const { AppError } = require('./payload/AppError');
  * midlware
  */
  app.use(express.json());
- 
+
 
 /**
  * 
@@ -43,8 +44,8 @@ app.use((err, req, res, next) => {
     res.status(httpStatus.NOT_FOUND).send(err)
   })
 
-
+console.log("The Port is:"+port);
 app.listen(port, (req, res) => {
-    console.log(`it is working on ${process.env.BASE_URL}: ${port}`);
-
+   console.log(`it is working on ${process.env.BASE_URL}: ${port}`);
+  // console.log("We are listening Port "+port);
 });
