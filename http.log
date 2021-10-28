@@ -1,0 +1,18 @@
+2021-10-17T14:08:15.370Z [undefined] [32minfo[39m: hello logger works
+2021-10-17T14:11:48.895Z [undefined] [32minfo[39m: creating new user
+2021-10-17T14:13:09.407Z [undefined] [32minfo[39m: creating new user
+2021-10-17T14:15:22.834Z [undefined] [32minfo[39m: creating new user
+2021-10-17T14:16:56.097Z [undefined] [32minfo[39m: creating new user
+2021-10-17T14:17:46.973Z [undefined] [32minfo[39m: creating new user
+2021-10-17T14:20:08.222Z [undefined] [32minfo[39m: creating new user
+2021-10-17T17:43:47.440Z [undefined] [32minfo[39m:  calling create new user
+2021-10-17T17:44:08.097Z [undefined] [32minfo[39m:  calling create new user
+2021-10-17T17:44:08.099Z [undefined] [32minfo[39m: creating user 
+2021-10-17T17:54:36.709Z [undefined] [32minfo[39m:  calling create new user
+2021-10-17T17:54:36.713Z [undefined] [32minfo[39m: creating user 
+2021-10-17T18:11:13.206Z [undefined] [32minfo[39m:  calling create new user
+2021-10-17T18:11:13.213Z [undefined] [32minfo[39m: creating user 
+2021-10-17T18:11:16.291Z [undefined] [32minfo[39m:  calling create new user
+2021-10-17T18:11:22.885Z [undefined] [32minfo[39m:  calling create new user
+2021-10-17T19:01:33.503Z [CRUD OP] [32minfo[39m:  calling create new user
+2021-10-17T19:01:33.508Z [CRUD OP] [32minfo[39m: creating user 
