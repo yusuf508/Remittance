@@ -5,8 +5,10 @@ const {authService} =require('../services')
 const {AppiResponses, AppiResponse} = require('../payload/AppiResponses');
 
 exports.login =(req,res)=>{
+
 let email = req.body.email;    
-let password = req.body.password;   
+let password = req.body.password;  
+console.log(email); 
 let loginresponses =authService.login(email,password);
 
 
