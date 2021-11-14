@@ -27,6 +27,9 @@ const { AppError } = require('./payload/AppError');
 let routcatalog = require('./router/v1/index');
 app.use('/v1',routcatalog);
 
+let db = require('./config/database')
+
+
 // checking the AppI ERROR
 app.use((req,res,next)=>{
 

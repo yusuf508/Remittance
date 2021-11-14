@@ -6,27 +6,36 @@ const {AppError} = require('../payload/AppError');
 
 
 
-const login = (email, password) =>{
+const login = async (email, password) =>{
   logger.info(`Authentication on ${email} and ${password}`);
 
-  let user = usermodel.getUserByemailAndPassword(email, password);
-console.log(user.length);
-  if(user.length <=0){
+  let user = await usermodel.getUserByEmailAndPassword(email,password);
+console.log(user);
+if (!user || user.length <= 0){
 
       throw new AppError(401,"email or pasword doeas not match");
    }
    
 // return user;
+  
+    var token = jwt.sign({user},process.env.JWT_SECRET_KEY, {expiresIn:'50s'});
 
-    var token = jwt.sign({user},process.env.JWT_SECRET_KEY, {expiresIn:'30s'});
-
-
+      console.log(token);
    return {"accessToken":token};
 
     
 }
+const register = async (user) => {
+  let err = '';
 
+  let result = await usermodel.create(user);
+  if(!result)
+    err = " something went wrong";
 
+  return {result, err};
+
+}
 module.exports ={
-    login
+    login,
+    register
 }

@@ -5,10 +5,12 @@ const {uservalidator } = require('../../validations');
 const validate = require('../../midleware/validator');
 const accessToken = require('../../midleware/auth');
 
-router.get('/',accessToken.auth, usercontroler.getALLusers);
-router.post('/userById',usercontroler.userByemail);
+
+// accessToken.auth,
+router.get('/getAllUsers', usercontroler.getALLusers);
+router.post('/userById',usercontroler.getsingleUser);
 router.post('/create',validate(uservalidator.createUser),usercontroler.create);
-router.post('/updateUser',validate(uservalidator.updateUser),usercontroler.updateUser);
+router.post('/updateUser',validate(uservalidator.updateUser),usercontroler.updateUsers);
 router.post('/delete',usercontroler.deleteUser);
  
  
