@@ -35,15 +35,15 @@ const createUser = async (user) => {
 
 }
 
-const getALLuser = () =>{
+const getALLuser = async () =>{
 
-    return usermodel.getUsers();
+    return  await usermodel.getUsers();
 }
 
 
-const getone = (email) =>{
-    resp = usermodel.getUser(email);
-    return resp;
+const getone = async (email) =>{
+    resp =  usermodel.getUser(email);
+    return await resp;
 }
 const getUserByEmailAndPassword = async (email,password) =>{
     // resp = usermodel.getUser(email);
@@ -68,6 +68,16 @@ console.log(data);
 }
 
 
+// const getALLCountries = () =>{
+
+//     return usermodel.getCountries();
+
+// }
+
+
+
+
+
 
 
 
@@ -78,5 +88,6 @@ module.exports ={
     getone,
     updateUser,
     deleteUsr,
-    getUserByEmailAndPassword
+    getUserByEmailAndPassword,
+   
 }

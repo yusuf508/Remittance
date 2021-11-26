@@ -4,6 +4,7 @@ const router = express.Router();
 const userRouter = require('./user.root');
 const authRouter = require('./auth.root');
 const statehRouter = require('./state.root');
+const moneyRouter = require('./money.root');
 
 
 const RouterPaths = [ 
@@ -14,6 +15,12 @@ router: authRouter
 {
     path: '/user',
     router: userRouter
+},
+
+
+{
+    path: '/money',
+    router: moneyRouter
 },
 {
     path: '/state',

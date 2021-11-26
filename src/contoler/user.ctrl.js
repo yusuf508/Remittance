@@ -11,6 +11,7 @@ const { handleAsync } = require('../utils/util');
 
 const getALLusers = handleAsync (async (req, res)=>{
   let users = await userService.getALLuser();
+  console.log(users);
    res.status(status.OK).send(new AppiResponse(status.OK, 'Data Found', users));
   //  console.log(resp);
 
@@ -25,11 +26,12 @@ const getuserByEmail =  async (req, res)=>{
 
 }
 
-const getsingleUser = (req, res)=>{
+const getsingleUser = async (req, res)=>{
 
     let mail = req.body;
-    resp = userService.getone(mail.email);
-   return res.status(status.OK).send(resp);
+   let  resp = userService.getone(mail);
+  // return res.status(status.OK).send(resp);
+  return res.status(status.OK).send(new AppiResponse(status.OK, 'User  data Found', resp))
 
 }
 
@@ -45,20 +47,6 @@ const create = handleAsync(async(req, res) => {
    return res.status(status.OK).send(new AppiResponse(status.OK, 'Created Successfully', result))
    }
 
-
-// if(userService.isEmailExist(user.email)){
-
-//   return  res.status(status.NOT_ACCEPTABLE).send(new AppError(status.NOT_ACCEPTABLE,"user already exists"))
-
-  
-// }
-        // let usercreateStatus = await userService.createUser(user);
-      
-        // if(usercreateStatus){
-        //     return res.status(status.OK).send({message: "new user seccessfully created!"});
-
-        // }
-        // return res.status(status.INTERNAL_SERVER_ERROR).send({message:"invalid input"});
 
 
         })
@@ -83,22 +71,7 @@ console.log(users);
     return  res.status(status.OK).send(new AppError(status.OK, 'invalid input'));
 
 
-//     let user = req.body;
-//     if(!userService.isEmailExist(user.email)){
-    
-//       return  res.status(status.NOT_ACCEPTABLE).send(new AppError(status.NOT_ACCEPTABLE,"user does not  exists"))
-   
-      
-//     }
-//  let userupdateStatus = userService.updateUser(user);
-          
-//  if(userupdateStatus){
-//                 return res.status(status.OK).send(new AppiResponse(status.OK,"updating",usres));
-    
-//             }
-//             return res.status(status.INTERNAL_SERVER_ERROR).send(new AppError(status.NOT_ACCEPTABLE,"user does not updated"));
-    
-    
+
             });  
   const deleteUser = handleAsync( async (req,res) =>{
 
@@ -113,21 +86,17 @@ console.log(users);
   return  res.status(status.OK).send(new AppiResponse(status.OK, 'Data deleted', users));
    }
     return  res.status(status.OK).send(new AppError(status.OK, 'invalid input'));
-
-
-                //  user = req.body;
-                //  console.log(user);
-                // if (!userService.isEmailExist(user.email)){
-            
-                //   return  res.status(status.NOT_ACCEPTABLE).send('This email does not exist')
-                // }
-            
-                // result = userService.deleteUsr(user)
-                // if (result){
-                //     return res.status(status.OK).send("deleted Successfully")
-                // }
             });
     
+
+
+            // const getALLCountries = handleAsync (async (req, res)=>{
+            //   let users = await userService.getALLCountries();
+            //    res.status(status.OK).send(new AppiResponse(status.OK, 'Data Found', users));
+            //   //  console.log(resp);
+            
+            // })
+            
 
 
 
@@ -137,7 +106,8 @@ module.exports ={
     create,
     updateUsers,
     deleteUser,
-    getuserByEmail
+    getuserByEmail,
+ 
 }
 
 

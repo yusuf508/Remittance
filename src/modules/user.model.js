@@ -31,122 +31,114 @@ const users = [{
 ]
 
 
-
 //..................../
 
 const getUsers = async () => {
-     return await db.executeQuerysingleparam(`select * from users`);
+    let result = await db.executeQuerysingleparam(`SELECT *  FROM USERS`);
+  //  console.log(result);
+    return result ;
+}
 
-    //return users;
-    }
+const getUser = async (email) => {
+  //  return users.filter(u => u.email === email);
+  console.log(email);
+  return await db.executeQuerysingleparam(`  SELECT *  FROM USERS where Email=:${email}`);
 
-    const getUser = (email) => {
-
-
-        return users.filter(u => u.email == email);
-       }
-
-
-//get user by emali and password to login
+}
 
 const getUserByEmailAndPassword = async (email, password) => {
-let qry = `SELECT * FROM USERS where email='${email}' and password='${password}'`
+    let result =await db.executeQuery(`SELECT U.USERID, U.FULLNAME, U.EMAIL,password,  R.ROLENAME
+    FROM USERS U
+             INNER JOIN USERROLE UR on U.USERID = UR.userId
+             INNER JOIN ROLES R on UR.roleId = R.ROLEID
+    WHERE EMAIL = :email
+      AND PASSWORD = :password
+      AND ACTIVE = 1`, [email, password]);
+      console.log(result);
 
- console.log(qry);
-  return await db.executeQuerysingleparam(qry);
 
-   //return users.filter(u => u.email == email && u.password == password);
+    // let result = await db.executeQuery(`SELECT U.USERID, U.FULLNAME, U.EMAIL,password, R.ROLENAME
+    //                                     FROM USERS U
+    //                                              INNER JOIN USERROLE UR on U.USERID = UR."userId"
+    //                                              INNER JOIN ROLES R on UR."roleId" = R.ROLEID
+    //                                     WHERE EMAIL = :email
+    //                                       AND PASSWORD = :password
+    //                                       AND ACTIVE = 1`, [email, password])
 
-   }
+    if (!result)
+        return null;
 
-   
+    return result[0];
+}
 
 const create = async (user) => {
-//users.push(user);
-let userid = user.userid;
-let email = user.email;
-let password = user.password;
-let fullName = user.fullName;
-let active = 0;
+    let email = user.email;
+    let password = user.password;
+    let fullName = user.fullName;
+    let active = 0;
 
-let result = await db.executeQuery(`INSERT INTO USERS (USERID, EMAIL, PASSWORD, FULLNAME, ACTIVE)
-                                        VALUES (:userid, :email, :password, :fullName,:active)`
-                                        , [userid ,email, password, fullName, active]);
+    let result = await db.executeQuery(`INSERT INTO USERS (USERID, EMAIL, PASSWORD, FULLNAME, ACTIVE)
+                                        VALUES (USER_SEQ.nextval, :email, :password, :fullName,:active)`
+                                        , [email, password, fullName, active]);
     if (result.rowsAffected === 1)
         return true;
 
-        return false;
+    return false;
 }
 
-// update user by using filter with map
-const update = async (user) =>{
-let userid = user.userid;
-let email = user.email;
-let password = user.password;
-let fullName = user.fullName;
-let active = user.active;
-
-    let result = await db.executeQuery(`update users set email=:email, 
-    fullname =:fullName,password=:password,active=:active where userid =${userid}`,
-    [email,password,fullName,active]);
-
-
- if (result.rowsAffected === 1)
-        return true;
-
-        return false;
-
-    // new_user = users.filter(u=> u.email == user.email)
-    // new_user.map(function (value,index) { 
-
-    //     users[index].firstName = user.firstName;
-    //     users[index].LastName = user.LastName;
-    //     users[index].age = user.age;
-    //     users[index].email = user.email;
-    // });
-    // return true
-}
-
-
-const deleteuser = async (userid) =>{
-
-console.log(
-    userid
-);
-    let result = await db.executeQuery(`delete  from users  where userid=:userid`,[userid]);
-    console.log(
-        result
-    );
-
- if (result.rowsAffected === 1)
-        return true;
-
-        return false;
-    // new_user = users.filter(u=> u.email === email.email)
-    // new_user.map(function (value, index){
-    //     users.splice(index, 1);
-    // });
-    // return true;
+const isEmailExist = (email) => {
+    return users.filter(u => u.email === email).length > 0;
 }
 
 
 
-const isEmailExist = async(email) =>{
+
+/*   
+money Transfer Functions start here 
+
+*/
 
 
-    let users = await db.executeQuerysingleparam(`select * from users where email = '${email}'`);
-    return users;
-    // return users.filter(u => u.email===email).length >0;
-}
+
+const getCountries = async () => {
+    return await db.executeQuerysingleparam(`select * from country`);
+
+   //return users;
+   }
+ 
+   const getStates = async () => {
+    return await db.executeQuerysingleparam(`select * from state`);
+
+   //return users;
+   }
+   const getCity = async () => {
+    return await db.executeQuerysingleparam(`select * from cities`);
+
+   //return users;
+   }
+  // getcurrency
+
+  const getcurrency = async () => {
+    return await db.executeQuerysingleparam(`select * from currencies`);
+
+   //return users;
+   }
+
+
+
 
 
 
 module.exports = {
-    create,
-    getUser,
-   getUsers,
-   isEmailExist,
-   update,
-deleteuser,
-getUserByEmailAndPassword 
+   
+ getCountries ,
+ getStates ,
+ getCity ,
+ getcurrency,
+ isEmailExist ,
+ create,
+ getUserByEmailAndPassword,
+ getUser ,
+ getUsers
+
 }
